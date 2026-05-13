@@ -1,0 +1,463 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --obsidian:#1A1A1A;--gold:#C9A96E;--gold-light:#E8D5B0;--gold-pale:#F5EDD8;
+    --ivory:#FAFAF7;--champagne:#F2EDE4;--taupe:#8A8278;--white:#FFFFFF;
+    --border:#E8E2D8;--border-subtle:#F0EBE2;
+    --font-serif:'Cormorant Garamond',Georgia,serif;
+    --font-sans:'DM Sans',system-ui,sans-serif;
+  }
+
+  body{font-family:var(--font-sans);background:var(--ivory);color:var(--obsidian);font-size:14px;line-height:1.5}
+
+  .layout{display:flex;height:600px;overflow:hidden;border-radius:12px;box-shadow:0 0 0 1px var(--border),0 24px 64px rgba(0,0,0,0.08)}
+
+  /* SIDEBAR */
+  .sidebar{width:220px;flex-shrink:0;background:var(--obsidian);display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .sidebar::before{content:'';position:absolute;top:-80px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(201,169,110,0.06);pointer-events:none}
+  .sidebar-brand{padding:28px 20px 20px;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand-name{font-family:var(--font-serif);font-size:24px;font-weight:300;color:var(--white);letter-spacing:0.02em;line-height:1}
+  .brand-dot{color:var(--gold)}
+  .brand-sub{font-family:var(--font-sans);font-size:9px;letter-spacing:0.35em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:4px;font-weight:500}
+  .sidebar-nav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:2px}
+  .nav-section-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.2);padding:12px 8px 6px;font-weight:600}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;color:rgba(255,255,255,0.45);font-size:12px;font-weight:400;letter-spacing:0.02em;cursor:pointer;transition:all 0.15s;text-decoration:none;border:none;background:none;width:100%;text-align:left}
+  .nav-item i{font-size:16px;width:16px;flex-shrink:0}
+  .nav-item:hover{color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.05)}
+  .nav-item.active{color:var(--white);background:rgba(201,169,110,0.12);border:1px solid rgba(201,169,110,0.15)}
+  .nav-item.active i{color:var(--gold)}
+  .nav-badge{margin-left:auto;background:var(--gold);color:var(--obsidian);font-size:9px;font-weight:600;padding:2px 6px;border-radius:20px;line-height:1.4}
+  .sidebar-footer{padding:16px 12px;border-top:1px solid rgba(255,255,255,0.06)}
+  .sidebar-user{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;cursor:pointer;transition:background 0.15s}
+  .sidebar-user:hover{background:rgba(255,255,255,0.04)}
+  .user-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,rgba(201,169,110,0.3),rgba(201,169,110,0.1));border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:13px;color:var(--gold);flex-shrink:0}
+  .user-info{flex:1;min-width:0}
+  .user-name{font-size:12px;font-weight:500;color:rgba(255,255,255,0.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .user-role{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.05em}
+
+  /* MAIN */
+  .main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--ivory)}
+
+  /* TOPBAR */
+  .topbar{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
+  .topbar-left{display:flex;flex-direction:column}
+  .breadcrumb{font-size:11px;color:var(--taupe);letter-spacing:0.04em}
+  .page-title{font-family:var(--font-serif);font-size:20px;font-weight:400;color:var(--obsidian);line-height:1.1;letter-spacing:0.01em}
+  .topbar-right{display:flex;align-items:center;gap:8px}
+  .topbar-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--taupe);font-size:16px;position:relative;transition:all 0.15s}
+  .topbar-btn:hover{border-color:var(--gold);color:var(--obsidian)}
+  .notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--gold);border:1.5px solid var(--white)}
+  .divider-v{width:1px;height:20px;background:var(--border);margin:0 4px}
+  .add-btn{display:flex;align-items:center;gap:6px;padding:0 14px;height:32px;background:var(--obsidian);color:var(--white);border:none;border-radius:6px;font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s;flex-shrink:0}
+  .add-btn:hover{background:var(--gold);color:var(--obsidian)}
+
+  /* CONTENT */
+  .content{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:16px}
+
+  /* METRICS */
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .metric-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;cursor:default;transition:box-shadow 0.2s}
+  .metric-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.06)}
+  .metric-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity 0.2s}
+  .metric-card:hover::after{opacity:1}
+  .metric-icon{width:32px;height:32px;border-radius:8px;background:var(--champagne);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--taupe);margin-bottom:12px}
+  .metric-card.highlight .metric-icon{background:rgba(201,169,110,0.15);color:var(--gold)}
+  .metric-label{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--taupe);margin-bottom:4px}
+  .metric-value{font-family:var(--font-serif);font-size:28px;font-weight:300;color:var(--obsidian);line-height:1;letter-spacing:-0.01em}
+  .metric-value.sm{font-size:20px;font-weight:400;letter-spacing:0;font-family:var(--font-sans)}
+  .metric-sub{font-size:10px;color:var(--taupe);margin-top:4px}
+  .metric-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;color:#3a7d44;background:#edf7ef;border-radius:20px;padding:2px 8px;margin-top:4px}
+
+  /* TABLE CARD */
+  .table-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;flex:1;display:flex;flex-direction:column}
+  .table-toolbar{padding:12px 16px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:10px;background:var(--white)}
+  .search-wrap{position:relative;flex:1;max-width:260px}
+  .search-wrap i{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--taupe)}
+  .search-input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--border);border-radius:6px;font-family:var(--font-sans);font-size:12px;color:var(--obsidian);background:var(--champagne);outline:none;transition:all 0.15s}
+  .search-input:focus{border-color:var(--gold);background:var(--white);box-shadow:0 0 0 3px rgba(201,169,110,0.1)}
+  .search-input::placeholder{color:var(--taupe)}
+  .filter-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--border);border-radius:6px;background:var(--white);font-family:var(--font-sans);font-size:11px;font-weight:500;color:var(--taupe);cursor:pointer;transition:all 0.15s;letter-spacing:0.04em}
+  .filter-btn:hover{border-color:var(--gold);color:var(--obsidian)}
+  .toolbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .view-count{font-size:11px;color:var(--taupe)}
+
+  .table-wrap{overflow:auto;flex:1}
+  table{width:100%;border-collapse:collapse;min-width:600px}
+  thead tr{background:var(--champagne)}
+  th{padding:10px 16px;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+  th:last-child{text-align:right}
+  tbody tr{border-bottom:1px solid var(--border-subtle);transition:background 0.12s;cursor:default}
+  tbody tr:last-child{border-bottom:none}
+  tbody tr:hover{background:rgba(245,237,216,0.4)}
+  td{padding:12px 16px;vertical-align:middle}
+
+  .product-cell{display:flex;align-items:center;gap:12px}
+  .product-img{width:38px;height:48px;border-radius:4px;background:var(--champagne);border:1px solid var(--border);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:11px;color:var(--taupe);font-style:italic}
+  .product-name{font-family:var(--font-serif);font-size:16px;font-weight:400;color:var(--obsidian);line-height:1.2;letter-spacing:0.01em}
+  .product-sku{font-size:10px;color:var(--taupe);letter-spacing:0.06em;text-transform:uppercase;margin-top:2px}
+
+  .cat-pill{display:inline-block;font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--taupe);background:var(--champagne);border:1px solid var(--border);border-radius:4px;padding:3px 8px}
+
+  .price-val{font-size:13px;font-weight:500;color:var(--obsidian);letter-spacing:0.02em}
+
+  .badge{display:inline-flex;align-items:center;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border-radius:4px;padding:3px 8px}
+  .badge-new{background:var(--obsidian);color:var(--white)}
+  .badge-sale{background:rgba(201,169,110,0.2);color:#7a5c2e;border:1px solid rgba(201,169,110,0.4)}
+  .badge-active{background:#edf7ef;color:#3a7d44;border:1px solid rgba(58,125,68,0.2)}
+  .badge-limited{background:#fef5e7;color:#92600a;border:1px solid rgba(201,169,110,0.3)}
+
+  .actions-cell{text-align:right}
+  .action-row{display:flex;justify-content:flex-end;gap:4px;opacity:0;transition:opacity 0.15s}
+  tr:hover .action-row{opacity:1}
+  .act-btn{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--taupe);transition:all 0.15s}
+  .act-btn:hover.edit{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,0.06)}
+  .act-btn:hover.del{border-color:#e24b4a;color:#e24b4a;background:#fef5f5}
+
+  .table-footer{padding:10px 16px;border-top:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;background:var(--champagne)}
+  .footer-info{font-size:11px;color:var(--taupe)}
+  .footer-info span{font-weight:600;color:var(--obsidian)}
+  .pagination{display:flex;gap:4px}
+  .page-btn{height:26px;min-width:26px;padding:0 8px;border:1px solid var(--border);background:var(--white);border-radius:5px;font-family:var(--font-sans);font-size:11px;font-weight:500;color:var(--taupe);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+  .page-btn:hover{border-color:var(--gold);color:var(--obsidian)}
+  .page-btn.active{background:var(--obsidian);color:var(--white);border-color:var(--obsidian)}
+
+  /* MODAL */
+  .modal-overlay{position:absolute;inset:0;background:rgba(26,26,26,0.5);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity 0.2s;border-radius:12px}
+  .modal-overlay.open{opacity:1;pointer-events:all}
+  .modal{background:var(--white);border-radius:12px;width:420px;max-width:calc(100% - 32px);overflow:hidden;transform:scale(0.95);transition:transform 0.2s;box-shadow:0 24px 64px rgba(0,0,0,0.2)}
+  .modal-overlay.open .modal{transform:scale(1)}
+  .modal-header{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .modal-title{font-family:var(--font-serif);font-size:22px;font-weight:400;color:var(--obsidian)}
+  .modal-close{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--taupe);transition:all 0.15s}
+  .modal-close:hover{border-color:var(--obsidian);color:var(--obsidian)}
+  .modal-body{padding:20px 24px;display:flex;flex-direction:column;gap:14px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .form-group{display:flex;flex-direction:column;gap:5px}
+  .form-group label{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--taupe)}
+  .form-group input,.form-group select,.form-group textarea{padding:9px 12px;border:1px solid var(--border);border-radius:6px;font-family:var(--font-sans);font-size:13px;color:var(--obsidian);background:var(--champagne);outline:none;transition:all 0.15s;width:100%}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);background:var(--white);box-shadow:0 0 0 3px rgba(201,169,110,0.1)}
+  .form-group textarea{resize:none;height:68px;line-height:1.5}
+  .modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;background:var(--champagne)}
+  .btn-cancel{padding:8px 18px;border:1px solid var(--border);border-radius:6px;background:var(--white);font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--taupe);cursor:pointer;transition:all 0.15s}
+  .btn-cancel:hover{border-color:var(--obsidian);color:var(--obsidian)}
+  .btn-save{padding:8px 18px;border:none;border-radius:6px;background:var(--obsidian);font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--white);cursor:pointer;transition:all 0.15s}
+  .btn-save:hover{background:var(--gold);color:var(--obsidian)}
+
+  .content::-webkit-scrollbar,.table-wrap::-webkit-scrollbar{width:4px;height:4px}
+  .content::-webkit-scrollbar-track,.table-wrap::-webkit-scrollbar-track{background:transparent}
+  .content::-webkit-scrollbar-thumb,.table-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<h2 class="sr-only">Sufrah Admin Dashboard — Products management panel</h2>
+
+<div class="layout" id="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-name">Sufrah<span class="brand-dot">.</span></div>
+      <div class="brand-sub">Admin Console</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <button class="nav-item" onclick="sendPrompt('Show me dashboard analytics')"><i class="ti ti-layout-dashboard"></i> Dashboard</button>
+
+      <div class="nav-section-label">Catalog</div>
+      <button class="nav-item active"><i class="ti ti-package"></i> Products <span class="nav-badge">12</span></button>
+      <button class="nav-item" onclick="sendPrompt('Show orders management')"><i class="ti ti-shopping-bag"></i> Orders <span class="nav-badge" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.5)">3</span></button>
+      <button class="nav-item" onclick="sendPrompt('Show collections management')"><i class="ti ti-stack-2"></i> Collections</button>
+
+      <div class="nav-section-label">Business</div>
+      <button class="nav-item" onclick="sendPrompt('Show customers list')"><i class="ti ti-users"></i> Customers</button>
+      <button class="nav-item" onclick="sendPrompt('Show analytics and reports')"><i class="ti ti-chart-line"></i> Analytics</button>
+      <button class="nav-item"><i class="ti ti-adjustments"></i> Settings</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar">S</div>
+        <div class="user-info">
+          <div class="user-name">Sufrah Admin</div>
+          <div class="user-role">Super Admin</div>
+        </div>
+        <i class="ti ti-logout" style="font-size:14px;color:rgba(255,255,255,0.25);flex-shrink:0"></i>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="breadcrumb">Catalog / Products</div>
+        <div class="page-title">Product Management</div>
+      </div>
+      <div class="topbar-right">
+        <button class="topbar-btn" title="Search"><i class="ti ti-search"></i></button>
+        <button class="topbar-btn" title="Notifications"><i class="ti ti-bell"></i><span class="notif-dot"></span></button>
+        <div class="divider-v"></div>
+        <button class="add-btn" onclick="openModal()"><i class="ti ti-plus" style="font-size:14px"></i> Add Product</button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- METRICS -->
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="metric-icon"><i class="ti ti-package"></i></div>
+          <div class="metric-label">Total Products</div>
+          <div class="metric-value" id="m-total">12</div>
+          <div class="metric-sub">Pieces in collection</div>
+        </div>
+        <div class="metric-card highlight">
+          <div class="metric-icon"><i class="ti ti-stack-2"></i></div>
+          <div class="metric-label">Categories</div>
+          <div class="metric-value" id="m-cats">4</div>
+          <div class="metric-sub">Active collections</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon"><i class="ti ti-currency-rupee"></i></div>
+          <div class="metric-label">Est. Retail Value</div>
+          <div class="metric-value sm" id="m-value">₨ 2,48,500</div>
+          <div class="metric-badge"><i class="ti ti-trending-up" style="font-size:10px"></i> +12% this month</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon"><i class="ti ti-star"></i></div>
+          <div class="metric-label">Featured Items</div>
+          <div class="metric-value" id="m-featured">3</div>
+          <div class="metric-sub">Active promotions</div>
+        </div>
+      </div>
+
+      <!-- TABLE CARD -->
+      <div class="table-card">
+        <div class="table-toolbar">
+          <div class="search-wrap">
+            <i class="ti ti-search"></i>
+            <input class="search-input" type="text" placeholder="Search collection..." id="searchInput" oninput="filterTable()">
+          </div>
+          <button class="filter-btn"><i class="ti ti-adjustments-horizontal" style="font-size:14px"></i> Filter</button>
+          <button class="filter-btn"><i class="ti ti-arrows-sort" style="font-size:14px"></i> Sort</button>
+          <div class="toolbar-right">
+            <span class="view-count" id="view-count">Showing 12 products</span>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <div class="footer-info">Showing <span id="f-showing">1–12</span> of <span id="f-total">12</span> products</div>
+          <div class="pagination">
+            <button class="page-btn"><i class="ti ti-chevron-left" style="font-size:12px"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><i class="ti ti-chevron-right" style="font-size:12px"></i></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-title">Add New Product</div>
+        <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group" style="grid-column:1/-1">
+            <label>Product Name</label>
+            <input type="text" id="f-name" placeholder="e.g. Embroidered Khaddar Suit">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Price (PKR)</label>
+            <input type="number" id="f-price" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select id="f-category">
+              <option>Formal</option>
+              <option>Casual</option>
+              <option>Bridal</option>
+              <option>Accessories</option>
+              <option>Unstitched</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Status</label>
+            <select id="f-badge">
+              <option value="">Active</option>
+              <option>New</option>
+              <option>Sale</option>
+              <option>Limited</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>SKU</label>
+            <input type="text" id="f-sku" placeholder="SUF-0001">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="f-desc" placeholder="Briefly describe this product..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-save" onclick="saveProduct()">Save Product</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const products = [
+  {id:1,name:'Embroidered Organza Saree',sku:'SUF-0012',category:'Formal',price:28500,badge:'New',desc:'Handcrafted organza with intricate thread work'},
+  {id:2,name:'Silk Anarkali Ensemble',sku:'SUF-0011',category:'Formal',price:34000,badge:'',desc:'Pure mulberry silk with zardozi detailing'},
+  {id:3,name:'Khaddar Winter Collection',sku:'SUF-0010',category:'Casual',price:12500,badge:'Sale',desc:'Premium khaddar fabric, unlined'},
+  {id:4,name:'Bridal Lehenga — Crimson',sku:'SUF-0009',category:'Bridal',price:85000,badge:'Limited',desc:'Hand-embroidered lehenga with dupatta'},
+  {id:5,name:'Chikankari Kurta Set',sku:'SUF-0008',category:'Casual',price:8900,badge:'',desc:'Delicate lucknowi chikankari on muslin'},
+  {id:6,name:'Heritage Lawn Print',sku:'SUF-0007',category:'Unstitched',price:5500,badge:'New',desc:'Digitally printed premium lawn, 3-piece'},
+  {id:7,name:'Velvet Shawl — Ivory',sku:'SUF-0006',category:'Accessories',price:6800,badge:'',desc:'Handwoven velvet with pashmina border'},
+  {id:8,name:'Georgette Palazzo Set',sku:'SUF-0005',category:'Casual',price:14200,badge:'',desc:'Flowy georgette with thread embroidery'},
+  {id:9,name:'Zardozi Bridal Dupatta',sku:'SUF-0004',category:'Bridal',price:22000,badge:'Limited',desc:'Pure silk dupatta with gold zardozi'},
+  {id:10,name:'Tussar Silk Coord Set',sku:'SUF-0003',category:'Formal',price:19500,badge:'',desc:'Sustainable tussar silk, hand-painted'},
+  {id:11,name:'Lawn Embroidered 3-Pc',sku:'SUF-0002',category:'Unstitched',price:7200,badge:'Sale',desc:'Floral embroidery on premium lawn'},
+  {id:12,name:'Oxidised Silver Jhumka',sku:'SUF-0001',category:'Accessories',price:3200,badge:'',desc:'Handcrafted oxidised silver earrings'},
+];
+
+let filteredData = [...products];
+let editingId = null;
+
+const badgeClass = {New:'badge-new',Sale:'badge-sale',Limited:'badge-limited','':'badge-active'};
+const badgeLabel = {'New':'New','Sale':'On Sale','Limited':'Limited','':'Active'};
+const initials = name => name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+
+function renderTable(){
+  const body = document.getElementById('tableBody');
+  if(!filteredData.length){
+    body.innerHTML = `<tr><td colspan="5" style="padding:40px;text-align:center;color:var(--taupe)"><i class="ti ti-package" style="font-size:32px;display:block;margin:0 auto 12px;opacity:0.3"></i><div style="font-family:var(--font-serif);font-size:18px;color:var(--obsidian);margin-bottom:4px">No products found</div><div style="font-size:12px">Try adjusting your search</div></td></tr>`;
+    return;
+  }
+  body.innerHTML = filteredData.map(p=>`
+    <tr>
+      <td>
+        <div class="product-cell">
+          <div class="product-img">${initials(p.name)}</div>
+          <div>
+            <div class="product-name">${p.name}</div>
+            <div class="product-sku">${p.sku} · ${p.desc.length>38?p.desc.slice(0,38)+'…':p.desc}</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="cat-pill">${p.category}</span></td>
+      <td><span class="price-val">₨ ${p.price.toLocaleString()}</span></td>
+      <td><span class="badge ${badgeClass[p.badge]||'badge-active'}">${badgeLabel[p.badge]||'Active'}</span></td>
+      <td class="actions-cell">
+        <div class="action-row">
+          <button class="act-btn edit" onclick="openEdit(${p.id})" title="Edit"><i class="ti ti-edit"></i></button>
+          <button class="act-btn del" onclick="deleteProduct(${p.id})" title="Delete"><i class="ti ti-trash"></i></button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+  document.getElementById('view-count').textContent = `Showing ${filteredData.length} product${filteredData.length!==1?'s':''}`;
+  document.getElementById('f-showing').textContent = filteredData.length===0?'0':`1–${filteredData.length}`;
+  document.getElementById('f-total').textContent = products.length;
+  document.getElementById('m-total').textContent = products.length;
+  const cats = new Set(products.map(p=>p.category)).size;
+  document.getElementById('m-cats').textContent = cats;
+  const val = products.reduce((a,p)=>a+p.price,0);
+  document.getElementById('m-value').textContent = '₨ '+val.toLocaleString();
+  const feat = products.filter(p=>p.badge).length;
+  document.getElementById('m-featured').textContent = feat;
+}
+
+function filterTable(){
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  filteredData = products.filter(p=>p.name.toLowerCase().includes(q)||p.category.toLowerCase().includes(q)||p.sku.toLowerCase().includes(q));
+  renderTable();
+}
+
+function openModal(reset=true){
+  if(reset){editingId=null;document.getElementById('modal-title').textContent='Add New Product';['f-name','f-price','f-sku','f-desc'].forEach(id=>document.getElementById(id).value='');document.getElementById('f-badge').value='';}
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+
+function openEdit(id){
+  const p = products.find(x=>x.id===id);
+  if(!p)return;
+  editingId = id;
+  document.getElementById('modal-title').textContent = 'Edit Product';
+  document.getElementById('f-name').value = p.name;
+  document.getElementById('f-price').value = p.price;
+  document.getElementById('f-category').value = p.category;
+  document.getElementById('f-badge').value = p.badge;
+  document.getElementById('f-sku').value = p.sku;
+  document.getElementById('f-desc').value = p.desc;
+  openModal(false);
+}
+
+function saveProduct(){
+  const name = document.getElementById('f-name').value.trim();
+  const price = parseFloat(document.getElementById('f-price').value)||0;
+  const category = document.getElementById('f-category').value;
+  const badge = document.getElementById('f-badge').value;
+  const sku = document.getElementById('f-sku').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  if(!name){document.getElementById('f-name').focus();return;}
+  if(editingId){
+    const idx = products.findIndex(p=>p.id===editingId);
+    if(idx>-1) products[idx]={...products[idx],name,price,category,badge,sku,desc};
+  } else {
+    products.unshift({id:Date.now(),name,price,category,badge,sku:sku||'SUF-NEW',desc});
+  }
+  filterTable();
+  closeModal();
+}
+
+function deleteProduct(id){
+  const idx = products.findIndex(p=>p.id===id);
+  if(idx>-1) products.splice(idx,1);
+  filteredData = filteredData.filter(p=>p.id!==id);
+  renderTable();
+}
+
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+renderTable();
+</script>
