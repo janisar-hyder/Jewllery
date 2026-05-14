@@ -7,9 +7,9 @@ import { getWhatsAppLink } from '../hooks/useWhatsApp';
 
 /* ─── Data ─────────────────────────────────────── */
 const contactItems = [
-  { Icon: MessageCircle, label: 'WhatsApp',  value: '+92 300 1234567', href: null,  isWA: true },
-  { Icon: Mail,          label: 'Email',     value: 'hello@sufrah.pk', href: 'mailto:hello@sufrah.pk' },
-  { Icon: Instagram,     label: 'Instagram', value: '@sufrah.pk',       href: 'https://instagram.com/sufrah.pk' },
+  { Icon: MessageCircle, label: 'WhatsApp',  value: '+92 329 4954385', href: null,  isWA: true },
+  { Icon: Mail,          label: 'Email',     value: 'sufraahpk@gmail.com', href: 'mailto:sufraahpk@gmail.com' },
+  { Icon: Instagram,     label: 'Instagram', value: '@sufrah.pk_',       href: 'https://www.instagram.com/sufrah.pk_?igsh=MWFxaHg4Y2ZseTlsaw%3D%3D&utm_source=qr' },
   { Icon: MapPin,        label: 'Location',  value: 'Lahore, Pakistan', href: null },
 ];
 

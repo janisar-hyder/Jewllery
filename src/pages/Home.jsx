@@ -40,26 +40,21 @@ export default function Home() {
         className="relative overflow-hidden bg-obsidian"
         style={{ minHeight: '100svh', display: 'flex', alignItems: 'center' }}
       >
-        {/* Background Image */}
+        {/* Background Video */}
         <motion.div
           variants={imageReveal}
           initial="hidden"
           animate="visible"
           className="absolute inset-0"
         >
-          {/* Desktop Image — Cinematic Wide */}
-          <img
-            src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1920&q=80"
-            alt="Luxury jewelry hero"
-            className="w-full h-full object-cover hidden md:block"
-            style={{ opacity: 0.35 }}
-          />
-          {/* Mobile Image — High-Impact Portrait */}
-          <img
-            src="https://images.unsplash.com/photo-1515562141589-67f0d999c0f6?q=80&w=1587&auto=format&fit=crop"
-            alt="Luxury jewelry hero"
-            className="w-full h-full object-cover md:hidden"
-            style={{ opacity: 1 }}
+          <video
+            src="/Video.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+            style={{ opacity: 0.5 }}
           />
           <div
             className="absolute inset-0"
@@ -166,22 +161,18 @@ export default function Home() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="md:col-span-7 group relative overflow-hidden"
+              className="md:col-span-7 group relative overflow-hidden h-[480px] md:h-[550px] rounded-sm"
             >
-              <Link to="/products?category=jewelry" className="block">
-                <div className="aspect-[4/5] md:aspect-[7/5] overflow-hidden bg-champagne">
-                  {/* Desktop Image */}
-                  <img
-                    src="https://images.unsplash.com/photo-1721807644561-9efcabee5c42?q=80&w=1470&auto=format&fit=crop"
-                    alt="Jewelry Collection"
-                    className="w-full h-full object-cover img-jewelry hidden md:block"
-                  />
-                  {/* Mobile Image */}
-                  <img
-                    src="https://images.unsplash.com/photo-1515562141589-67f0d999c0f6?w=800&q=80"
-                    alt="Jewelry Collection Mobile"
-                    className="w-full h-full object-cover img-jewelry md:hidden"
-                  />
+              <Link to="/products?category=jewelry" className="block w-full h-full">
+                <div className="w-full h-full overflow-hidden bg-champagne relative">
+                  <picture className="w-full h-full block">
+                    <source media="(min-width: 768px)" srcSet="https://images.unsplash.com/photo-1721807644561-9efcabee5c42?q=80&w=1470&auto=format&fit=crop" />
+                    <img
+                      src="https://images.unsplash.com/photo-1726637385990-3ae9918194d3?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Jewelry Collection"
+                      className="w-full h-full object-cover img-jewelry absolute inset-0"
+                    />
+                  </picture>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-obsidian/80 to-transparent">
                   <p className="text-overline text-gold mb-2">Collection I</p>
@@ -199,22 +190,18 @@ export default function Home() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="md:col-span-5 group relative overflow-hidden"
+              className="md:col-span-5 group relative overflow-hidden h-[480px] md:h-[550px] rounded-sm"
             >
-              <Link to="/products?category=clutches" className="block">
-                <div className="aspect-[4/5] md:aspect-square overflow-hidden bg-champagne">
-                  {/* Desktop Image */}
-                  <img
-                    src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1200&q=80"
-                    alt="Clutches Collection"
-                    className="w-full h-full object-cover img-jewelry hidden md:block"
-                  />
-                  {/* Mobile Image */}
-                  <img
-                    src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=800&q=80"
-                    alt="Clutches Collection Mobile"
-                    className="w-full h-full object-cover img-jewelry md:hidden"
-                  />
+              <Link to="/products?category=clutches" className="block w-full h-full">
+                <div className="w-full h-full overflow-hidden bg-champagne relative">
+                  <picture className="w-full h-full block">
+                    <source media="(min-width: 768px)" srcSet="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1200&q=80" />
+                    <img
+                      src="https://images.unsplash.com/photo-1682745230951-8a5aa9a474a0?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Clutches Collection"
+                      className="w-full h-full object-cover img-jewelry absolute inset-0"
+                    />
+                  </picture>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-obsidian/80 to-transparent">
                   <p className="text-overline text-gold mb-2">Collection II</p>
@@ -518,7 +505,7 @@ export default function Home() {
             {instagramImages.map((img, i) => (
               <motion.a
                 key={i}
-                href="https://instagram.com/sufrah.pk"
+                href="https://www.instagram.com/sufrah.pk_?igsh=MWFxaHg4Y2ZseTlsaw%3D%3D&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}

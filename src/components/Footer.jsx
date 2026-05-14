@@ -45,9 +45,9 @@ export default function Footer() {
             {/* Social */}
             <div className="flex gap-4">
               {[
-                { Icon: Instagram, href: 'https://instagram.com/sufrah.pk' },
+                { Icon: Instagram, href: 'https://www.instagram.com/sufrah.pk_?igsh=MWFxaHg4Y2ZseTlsaw%3D%3D&utm_source=qr' },
                 { Icon: MessageCircle, href: getWhatsAppLink() },
-                { Icon: Mail, href: 'mailto:hello@sufrah.pk' },
+                { Icon: Mail, href: 'mailto:sufraahpk@gmail.com' },
               ].map(({ Icon, href }, i) => (
                 <a
                   key={i}
@@ -103,12 +103,12 @@ export default function Footer() {
               <li>Lahore, Pakistan</li>
               <li>
                 <a href={getWhatsAppLink()} target="_blank" rel="noopener noreferrer" className="transition-colors duration-500 hover:text-gold">
-                  WhatsApp: +92 300 1234567
+                  WhatsApp: +92 329 4954385
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@sufrah.pk" className="transition-colors duration-500 hover:text-gold">
-                  hello@sufrah.pk
+                <a href="mailto:sufraahpk@gmail.com" className="transition-colors duration-500 hover:text-gold">
+                  sufraahpk@gmail.com
                 </a>
               </li>
             </ul>

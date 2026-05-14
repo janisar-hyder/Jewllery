@@ -16,13 +16,13 @@ export default function Marquee() {
   const allItems = [...items, ...items, ...items];
 
   return (
-    <div className="overflow-hidden border-y border-gold/10 py-5 bg-champagne/50" style={{ maxWidth: '100vw' }}>
-      <div className="flex items-center gap-12 animate-marquee w-max">
+    <div className="overflow-hidden border-y border-gold/20 py-10 md:py-16 bg-champagne/50" style={{ maxWidth: '100vw' }}>
+      <div className="flex items-center gap-16 md:gap-24 animate-marquee w-max">
         {allItems.map((item, i) => (
           <span
             key={i}
             className="text-overline text-taupe whitespace-nowrap tracking-[0.4em]"
-            style={{ fontSize: '10px' }}
+            style={{ fontSize: window.innerWidth > 768 ? '18px' : '14px' }}
           >
             {item}
           </span>

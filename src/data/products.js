@@ -223,10 +223,10 @@ export const testimonials = [
 
 // Instagram Gallery Images
 export const instagramImages = [
-  "https://images.unsplash.com/photo-1599643478518-a784e5dc0e8b?w=400&q=80",
-  "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80",
-  "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80",
-  "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80",
-  "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&q=80",
-  "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80"
+  "https://images.unsplash.com/photo-1721103427967-789d08779905?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1625908733875-efa9c75c084d?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1562273180-90004dbb33fb?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1605100804567-1ffe942b5cd6?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1682031215004-161c99d5b225?q=80&w=738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1747116404311-55f8d8944e83?q=80&w=803&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 ];

@@ -267,7 +267,7 @@ export default function Navbar() {
                     </span>
                   </a>
                   <a
-                    href="https://instagram.com/sufrah.pk"
+                    href="https://www.instagram.com/sufrah.pk_?igsh=MWFxaHg4Y2ZseTlsaw%3D%3D&utm_source=qr"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{

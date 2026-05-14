@@ -49,7 +49,7 @@ export default function ProductCard({ product, onQuickView, index = 0 }) {
               {onQuickView && (
                 <button
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); onQuickView(product); }}
-                  className="w-10 h-10 md:w-11 md:h-11 bg-white/95 flex items-center justify-center transition-all duration-500 hover:bg-gold hover:text-white shadow-sm"
+                  className="w-10 h-10 md:w-11 md:h-11 !bg-white text-obsidian flex items-center justify-center transition-all duration-500 hover:!bg-gold hover:text-white shadow-sm"
                   aria-label="Quick View"
                 >
                   <Eye size={16} className="md:w-[18px] md:h-[18px]" />
@@ -60,7 +60,7 @@ export default function ProductCard({ product, onQuickView, index = 0 }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="w-10 h-10 md:w-11 md:h-11 bg-white/95 flex items-center justify-center transition-all duration-500 hover:bg-gold hover:text-white shadow-sm"
+                className="w-10 h-10 md:w-11 md:h-11 !bg-white text-obsidian flex items-center justify-center transition-all duration-500 hover:!bg-gold hover:text-white shadow-sm"
                 aria-label="Order on WhatsApp"
               >
                 <MessageCircle size={16} className="md:w-[18px] md:h-[18px]" />
