@@ -400,3 +400,7 @@ tr:hover .action-row{opacity:1}
     grid-template-columns: 1fr;
   }
 }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

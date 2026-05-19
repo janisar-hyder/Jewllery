@@ -17,6 +17,7 @@ export default function AdminDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   // Form State for Modal
   const [formData, setFormData] = useState({
@@ -140,14 +141,44 @@ export default function AdminDashboard() {
     setIsModalOpen(false);
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData({ ...formData, images: [...formData.images, reader.result] });
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      // Generate a unique file path
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
+      const filePath = `product-images/${fileName}`;
+
+      // Upload to Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('products')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false,
+        });
+
+      if (uploadError) {
+        alert('Upload failed: ' + uploadError.message);
+        setUploading(false);
+        return;
+      }
+
+      // Get public URL
+      const { data: urlData } = supabase.storage
+        .from('products')
+        .getPublicUrl(filePath);
+
+      const publicUrl = urlData.publicUrl;
+      setFormData(prev => ({ ...prev, images: [...prev.images, publicUrl] }));
+    } catch (err) {
+      alert('Upload error: ' + err.message);
+    } finally {
+      setUploading(false);
+      // Reset input so same file can be re-selected
+      e.target.value = '';
     }
   };
 
@@ -166,6 +197,12 @@ export default function AdminDashboard() {
       ...formData,
       images: formData.images.filter((_, idx) => idx !== indexToRemove)
     });
+  };
+
+  // Helper: extract storage file path from a Supabase Storage public URL
+  const getStoragePath = (url) => {
+    if (!url || !url.includes('/storage/v1/object/public/products/')) return null;
+    return url.split('/storage/v1/object/public/products/')[1];
   };
 
   const saveProduct = async () => {
@@ -190,6 +227,17 @@ export default function AdminDashboard() {
 
   const deleteProduct = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
+      // Find product to get its images
+      const product = products.find(p => p.id === id);
+      if (product && product.images) {
+        // Delete images from storage bucket
+        const storagePaths = product.images
+          .map(getStoragePath)
+          .filter(Boolean);
+        if (storagePaths.length > 0) {
+          await supabase.storage.from('products').remove(storagePaths);
+        }
+      }
       await supabase.from('products').delete().eq('id', id);
     }
   };
@@ -482,10 +530,16 @@ export default function AdminDashboard() {
                           fontSize: '11px', fontWeight: '500', color: 'var(--taupe)', whiteSpace: 'nowrap'
                         }}
                       >
-                        <i className="ti ti-upload"></i> Upload
-                        <input type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageUpload} />
+                        <i className="ti ti-upload"></i> {uploading ? 'Uploading...' : 'Upload'}
+                        <input type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageUpload} disabled={uploading} />
                       </label>
                     </div>
+                    {uploading && (
+                      <div style={{ marginTop: '8px', fontSize: '11px', color: 'var(--gold)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ display: 'inline-block', width: '14px', height: '14px', border: '2px solid var(--gold)', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }}></span>
+                        Uploading image to storage...
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="form-row">
